@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: cadetblue;
+    font-family: 'Rubik', sans-serif;
+}
+
+.login-form {
+
+    width: 500px;
+    margin: 65px auto;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+.login-form h1 {
+    padding: 35px 35px 0 35px;
+    font-weight: 300;
+    text-align: center;
+    background-color: lightblue;
+}
+ {
+    font-size: 160%;
+}
+.login-form .content {
+    padding: 35px;
+    background-color: lightblue;
+    text-align: center;
+}
+.login-form .input-field {
+    padding: 12px 5px;
+}
+.login-form .input-field input {
+    background-color: lightblue;
+    font-size: 16px;
+    display: block;
+    font-family: 'Rubik', sans-serif;
+    width: 100%;
+    padding: 10px 1px;
+    border: 0;
+    border-bottom: 1px solid #747474;
+    outline: none;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+.login-form .input-field input::-webkit-input-placeholder {
+    text-transform: uppercase;
+}
+.login-form .input-field input::-moz-placeholder {
+    text-transform: uppercase;
+}
+.login-form .input-field input:-ms-input-placeholder {
+    text-transform: uppercase;
+}
+.login-form .input-field input::-ms-input-placeholder {
+    text-transform: uppercase;
+}
+.login-form .input-field input::placeholder {
+    text-transform: uppercase;
+}
+.login-form .input-field input:focus {
+    border-color: #222;
+}
+.login-form a.link {
+    text-decoration: none;
+    color: #747474;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 20px;
+}
+.login-form .action {
+
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+}
+.login-form .action button {
+    background: white;
+    width: 100%;
+    border: none;
+    border-color: #3c4d6d;
+    padding: 18px;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #777;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 0;
+    letter-spacing: 0.2px;
+    outline: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    text-align: center;
+}
+.login-form .action button:hover {
+    background: white;
+}
+.login-form .action button:nth-child(2) {
+    background: #2d3b55;
+    color: #fff;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 4px;
+}
+.login-form .action button:nth-child(2):hover {
+    background: #3c4d6d;
+}
+button {
+    padding: 5%;
+    height:70px;
+    width:430px;
+    font-size: 130%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.FAQ {
+    font-size: 140%;
+
+}
+.FAQS {
+    font-size: 130%;
+}
+
+nav{
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    width: 90px;
+    /* width: 280px; */
+    overflow: hidden;
+    transition: 1s;
+}
+nav:hover{
+    width: 280px;
+    transition: 1s;
+}
+.logo{
+    text-align: center;
+    display: flex;
+    margin: 10px 0 0 10px;
+    padding-bottom: 3rem;
+}
+
+.logo img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.logo span{
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+a{
+    color: black;
+    display: table;
+    padding: 10px;
+}
+nav .fas{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+.nav-item{
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+a:hover i{
+
+    transition: 0.5s;
+}
+.logout{
+    position: absolute;
+    bottom: 0;
+}
+
+.container{
+    display: flex;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    padding: 20px;
+}
+button {
+    width: 150px;
+    font-size: 130%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

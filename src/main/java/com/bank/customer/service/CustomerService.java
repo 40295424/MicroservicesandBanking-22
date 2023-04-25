@@ -12,9 +12,6 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
- /*These are the actual methods that are used in the relevant controller the methods such as findbyID, delete, save and findAll
-  is all part CRUD repository
-  CRUD - Create, read, update and delete*/
     private final CustomerRepository customerRepository ;
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -42,6 +39,10 @@ public class CustomerService {
 
     public List<Customer> listCustomers() {
         return (List<Customer>)customerRepository.findAll() ;
+    }
+
+    public Customer fetchCustomerByLogin(String login) {
+        return customerRepository.findByLoginId(login);
     }
 
 }

@@ -4,6 +4,7 @@ import com.bank.customer.exception.BadRequestException;
 import com.bank.customer.exception.NotFoundException;
 import com.bank.customer.model.Customer;
 import com.bank.customer.model.Transaction;
+import com.bank.customer.model.TransactionType;
 import com.bank.customer.service.CustomerService;
 import com.bank.customer.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,6 @@ public class TransactionController {
     @Autowired
     private CustomerService customerService;
 
-    /*Each of the methods here will be integrated into the buttons that are on the customer homepage/dashboard
-    however, to see what the buttons are  going to be doing once they are integrated hal explorer is used
-    JSON Hypertext Application Language we can use the explorer to navigate to certain endpoints for example we can go to the
-    customer endpoint add a transaction, view a transaction using the transaction id. The same thing can be done
-    with the customer controller.   */
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/transaction/{transactionId}")
@@ -45,12 +41,16 @@ public class TransactionController {
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/transaction/{transactionId}")
     public ResponseEntity<String>  deleteTransaction(@NotNull @PathVariable Integer transactionId) throws NotFoundException, BadRequestException {
+        Transaction transaction = transactionService.view(transactionId);
+        if(transaction == null) {
+            throw new NotFoundException(String.format("Transaction %s not found",transactionId));
+        }
         Boolean deleted = transactionService.delete(transactionId);
         if(!deleted ) {
             throw new BadRequestException((String.format("Transaction %s not delete",transactionId)));
         }
         return new ResponseEntity<String>("Deleted" , HttpStatus.OK);
-        /**/
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -58,23 +58,58 @@ public class TransactionController {
     public ResponseEntity<List<Transaction>> listTransaction() throws NotFoundException {
         List<Transaction> transaction =  transactionService.listTransaction();
         return new ResponseEntity<List<Transaction>>(transaction, HttpStatus.OK);
-        /**/
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/transaction")
-    public ResponseEntity<Transaction> saveTransation(@Valid @RequestBody Transaction transaction) throws NotFoundException {
+    public ResponseEntity<Transaction> saveTransation(@Valid @RequestBody Transaction transaction) throws  BadRequestException {
+        Customer payer = null ;
+        try {
+            payer = customerService.view(transaction.getPayer().getCustomerId());
+        } catch (NullPointerException exception) {
+
+        }
+        Customer payee = null ;
+        try {
+            payee = customerService.view(transaction.getPayee().getCustomerId());
+        } catch (NullPointerException exception) {
+
+        }
+        if(payee == null
+                && TransactionType.CASH_DEPOSIT.name().equalsIgnoreCase(transaction.getTransactionType()) ) {
+            throw new BadRequestException((String.format("Transaction  not executed invalid payer %s /payee %s",
+                    transaction.getPayer().getCustomerId(),
+                    transaction.getPayee().getCustomerId())));
+        }
+
+        if(payer == null
+                && TransactionType.CASH_WITHDRAWAL.name().equalsIgnoreCase(transaction.getTransactionType()) ) {
+            throw new BadRequestException((String.format("Transaction  not executed invalid payer %s /payee %s",
+                    transaction.getPayer().getCustomerId(),
+                    transaction.getPayee().getCustomerId())));
+        }
+
+        if( ( payee == null ||  payer == null )
+                && TransactionType.ACCOUNT_TO_ACCOUNT.name().equalsIgnoreCase(transaction.getTransactionType()) ) {
+            throw new BadRequestException((String.format("Transaction  not executed invalid payer %s /payee %s",
+                    transaction.getPayer().getCustomerId(),
+                    transaction.getPayee().getCustomerId())));
+        }
         return new ResponseEntity<Transaction>(transactionService.save(transaction),HttpStatus.OK);
-        /**/
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/customers/{customerId}/transactions")
+    @GetMapping("/customer/{customerId}/transactions")
     public ResponseEntity<List<Transaction>> listTransactionByPayee(@NotNull @PathVariable Integer customerId) throws NotFoundException {
         Customer customer = customerService.view(customerId);
-        List<Transaction> transaction =  transactionService.listTransactionByPayee(customer.getAccountNumber());
+        if(customer == null) {
+            throw new NotFoundException(String.format("Customer %s not found  ", customerId));
+        }
+        List<Transaction> transaction =  transactionService.listByCustomer(customer);
         return new ResponseEntity<List<Transaction>>(transaction, HttpStatus.OK);
-        /**/
+
     }
 
 

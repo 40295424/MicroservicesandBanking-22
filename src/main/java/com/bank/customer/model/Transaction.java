@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "TRANSACTION")
@@ -19,15 +20,31 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer transactionId;
-    @NotNull(message = "Transaction Name cannot be Null")
-    private String transactionName;
-    @NotNull(message = "Payee cannot be Null")
-    private String payee;
-    @NotNull(message = "Payee Account Number cannot be Null")
-    private String accountnumber;
-    @NotNull(message = "Currency cannot be Null")
+   // @NotNull(message = "Transaction Name cannot be Null")
+    private String transactionDescription;
+    //@NotNull(message = "Payee cannot be Null")
     private String currency;
-    @NotNull(message = "Amount cannot be Null")
+    //@NotNull(message = "Amount cannot be Null")
     private BigDecimal amount ;
+
+    private BigDecimal payeeBalance;
+
+    private BigDecimal payerBalance;
+    private Date transactionTimestamp;
+
+    private String transactionType;
+
+    @ManyToOne
+    @JoinColumn(name = "payee_customer_id")
+    private Customer payee;
+
+    @ManyToOne
+    @JoinColumn(name = "payer_customer_id")
+    private Customer payer;
+
+    @PrePersist
+    public void prePersist() {
+        this.transactionTimestamp = new Date();
+    }
 
 }

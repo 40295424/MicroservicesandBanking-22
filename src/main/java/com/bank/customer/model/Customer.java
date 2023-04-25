@@ -3,6 +3,7 @@ package com.bank.customer.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jdk.jfr.Unsigned;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -29,5 +30,10 @@ public class Customer {
     private BigDecimal bankBalance;
    // @NotNull(message = "Sort Code cannot be Null")
     private String sortcode;
+    @Column(unique = true)
+    @NotNull
+    private String loginId;
+    @NotNull
+    private String password;
 
 }

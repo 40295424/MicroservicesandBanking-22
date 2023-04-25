@@ -54,5 +54,11 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.save(customer),HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/customer/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerId,
+                                                   @Valid @RequestBody Customer customer) throws NotFoundException {
+        return new ResponseEntity<Customer>(customerService.save(customer),HttpStatus.OK);
+    }
 
 }

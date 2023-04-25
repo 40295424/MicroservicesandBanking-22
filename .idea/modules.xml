@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/microservice-blockchain.iml" filepath="$PROJECT_DIR$/microservice-blockchain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservice-banking.iml" filepath="$PROJECT_DIR$/microservice-banking.iml" />
     </modules>
   </component>
 </project>

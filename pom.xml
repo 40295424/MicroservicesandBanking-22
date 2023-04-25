@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bank.customer</groupId>
-	<artifactId>microservice-blockchain</artifactId>
+	<artifactId>microservice-banking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microservice-blockchain</name>
 	<description>microservice-blockchain</description>

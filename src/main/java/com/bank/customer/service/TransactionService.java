@@ -2,6 +2,7 @@ package com.bank.customer.service;
 
 import com.bank.customer.model.Customer;
 import com.bank.customer.model.Transaction;
+import com.bank.customer.model.TransactionAnalysis;
 import com.bank.customer.model.TransactionType;
 import com.bank.customer.repository.CustomerRepository;
 import com.bank.customer.repository.TransactionRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +94,11 @@ public class TransactionService {
 
     public List<Transaction> listByCustomer(Customer customer) {
         return transactionRepository.findAllByPayeeOrPayerOrderByTransactionTimestampDesc(customer,customer) ;
+    }
+
+    public List<TransactionAnalysis> listTransactionAnalysis(Customer customer) {
+        ArrayList<Transaction> transactions = (ArrayList<Transaction>) transactionRepository.findAll();
+        return transactionRepository.fetchTransactionAnalysis(customer.getCustomerId()) ;
     }
 
 }

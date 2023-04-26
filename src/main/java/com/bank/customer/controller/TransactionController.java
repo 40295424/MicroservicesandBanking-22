@@ -4,6 +4,7 @@ import com.bank.customer.exception.BadRequestException;
 import com.bank.customer.exception.NotFoundException;
 import com.bank.customer.model.Customer;
 import com.bank.customer.model.Transaction;
+import com.bank.customer.model.TransactionAnalysis;
 import com.bank.customer.model.TransactionType;
 import com.bank.customer.service.CustomerService;
 import com.bank.customer.service.TransactionService;
@@ -109,6 +110,18 @@ public class TransactionController {
         }
         List<Transaction> transaction =  transactionService.listByCustomer(customer);
         return new ResponseEntity<List<Transaction>>(transaction, HttpStatus.OK);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/customer/{customerId}/transactions/analysis")
+    public ResponseEntity<List<TransactionAnalysis>> listTransactionAnalsis(@NotNull @PathVariable Integer customerId) throws NotFoundException {
+        Customer customer = customerService.view(customerId);
+        if(customer == null) {
+            throw new NotFoundException(String.format("Customer %s not found  ", customerId));
+        }
+        List<TransactionAnalysis> transactions =  transactionService.listTransactionAnalysis(customer);
+        return new ResponseEntity<List<TransactionAnalysis>>(transactions, HttpStatus.OK);
 
     }
 

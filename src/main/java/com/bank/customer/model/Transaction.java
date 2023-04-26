@@ -34,6 +34,8 @@ public class Transaction {
 
     private String transactionType;
 
+    private String paymentType;
+
     @ManyToOne
     @JoinColumn(name = "payee_customer_id")
     private Customer payee;
